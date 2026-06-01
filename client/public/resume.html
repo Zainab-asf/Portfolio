@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zainab Asif — Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:    #0d9488;
+      --teal-lt: #14b8a6;
+      --navy:    #0f172a;
+      --slate:   #1e293b;
+      --muted:   #64748b;
+      --border:  #e2e8f0;
+      --bg:      #f8fafc;
+      --white:   #ffffff;
+      --text:    #1e293b;
+      --accent:  #6366f1;
+    }
+
+    html { font-size: 10pt; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 68mm 1fr;
+      box-shadow: 0 4px 40px rgba(0,0,0,.12);
+    }
+
+    /* ══════════════════════════════
+       LEFT SIDEBAR
+    ══════════════════════════════ */
+    .sidebar {
+      background: var(--navy);
+      color: #cbd5e1;
+      padding: 10mm 7mm 10mm 8mm;
+      display: flex;
+      flex-direction: column;
+      gap: 7mm;
+    }
+
+    /* Name block */
+    .name-block { text-align: center; padding-bottom: 6mm; border-bottom: 1px solid #334155; }
+    .avatar {
+      width: 22mm; height: 22mm;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18pt; font-weight: 700; color: #fff;
+      margin: 0 auto 3mm;
+      letter-spacing: .5px;
+    }
+    .sidebar-name {
+      font-size: 13pt; font-weight: 700; color: #f1f5f9;
+      letter-spacing: -.3px; line-height: 1.2;
+    }
+    .sidebar-role {
+      font-size: 8pt; font-weight: 500; color: var(--teal-lt);
+      text-transform: uppercase; letter-spacing: 1.2px;
+      margin-top: 1.5mm;
+    }
+
+    /* Sidebar section headers */
+    .s-section { display: flex; flex-direction: column; gap: 3mm; }
+    .s-label {
+      font-size: 7pt; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--teal-lt);
+      padding-bottom: 1.5mm; border-bottom: 1px solid #334155;
+    }
+
+    /* Contact items */
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 2.5mm;
+      font-size: 8pt; color: #94a3b8; line-height: 1.4;
+    }
+    .contact-icon {
+      width: 4mm; flex-shrink: 0; margin-top: .5mm;
+      color: var(--teal-lt);
+    }
+    .contact-item a { color: #94a3b8; text-decoration: none; }
+    .contact-item a:hover { color: var(--teal-lt); }
+
+    /* Skill pills */
+    .skill-group { display: flex; flex-direction: column; gap: 2mm; }
+    .skill-group-name {
+      font-size: 7.5pt; font-weight: 600; color: #e2e8f0;
+      margin-bottom: .5mm;
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 1.5mm; }
+    .pill {
+      font-size: 7pt; padding: 1mm 2.5mm;
+      background: #1e293b; color: #94a3b8;
+      border-radius: 2mm; border: .3mm solid #334155;
+      white-space: nowrap;
+    }
+    .pill.highlight {
+      background: rgba(13,148,136,.15);
+      border-color: rgba(13,148,136,.4);
+      color: var(--teal-lt);
+    }
+
+    /* Language bars */
+    .lang-item { display: flex; flex-direction: column; gap: 1mm; }
+    .lang-row { display: flex; justify-content: space-between; align-items: center; }
+    .lang-name { font-size: 8pt; color: #e2e8f0; }
+    .lang-level { font-size: 7pt; color: #64748b; }
+    .lang-bar { height: 1.5mm; background: #334155; border-radius: 1mm; overflow: hidden; }
+    .lang-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--accent)); border-radius: 1mm; }
+
+    /* ══════════════════════════════
+       MAIN CONTENT
+    ══════════════════════════════ */
+    .main {
+      padding: 10mm 9mm 10mm 8mm;
+      display: flex;
+      flex-direction: column;
+      gap: 6mm;
+    }
+
+    /* Section */
+    .section { display: flex; flex-direction: column; gap: 3.5mm; }
+    .section-title {
+      font-size: 10pt; font-weight: 700; color: var(--navy);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      display: flex; align-items: center; gap: 2mm;
+      padding-bottom: 1.5mm;
+      border-bottom: .5mm solid var(--teal);
+    }
+    .section-title svg { color: var(--teal); flex-shrink: 0; }
+
+    /* Summary */
+    .summary-text {
+      font-size: 8.5pt; color: var(--muted); line-height: 1.65;
+    }
+    .summary-text strong { color: var(--text); }
+
+    /* Experience / Education card */
+    .entry { display: flex; gap: 3mm; }
+    .entry-dot-col {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 1mm;
+    }
+    .dot {
+      width: 2.5mm; height: 2.5mm; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0;
+    }
+    .dot-line {
+      flex: 1; width: .3mm; background: var(--border);
+      margin-top: 1mm;
+    }
+    .entry-body { flex: 1; padding-bottom: 3mm; }
+    .entry-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .entry-title {
+      font-size: 9.5pt; font-weight: 600; color: var(--navy); line-height: 1.2;
+    }
+    .entry-badge {
+      font-size: 6.5pt; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .8px; padding: .8mm 2mm;
+      border-radius: 1mm; white-space: nowrap; margin-top: .5mm;
+    }
+    .badge-current { background: rgba(13,148,136,.12); color: var(--teal); }
+    .badge-done    { background: #f1f5f9; color: var(--muted); }
+    .entry-org  { font-size: 8pt; font-weight: 500; color: var(--teal); margin-top: .5mm; }
+    .entry-meta { font-size: 7.5pt; color: var(--muted); margin-top: .5mm; font-family: 'JetBrains Mono', monospace; }
+    .entry-desc { font-size: 8pt; color: #475569; margin-top: 1.5mm; line-height: 1.55; }
+    .entry-bullets { margin-top: 1.5mm; list-style: none; display: flex; flex-direction: column; gap: .8mm; }
+    .entry-bullets li {
+      font-size: 7.5pt; color: #475569;
+      display: flex; gap: 1.5mm; align-items: flex-start;
+    }
+    .entry-bullets li::before {
+      content: '▸'; color: var(--teal); flex-shrink: 0; margin-top: .1mm;
+    }
+
+    /* Projects */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+    .project-card {
+      border: .3mm solid var(--border);
+      border-radius: 2mm; padding: 3mm 3.5mm;
+      background: var(--bg);
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: .8mm;
+      background: linear-gradient(90deg, var(--teal), var(--accent));
+    }
+    .project-card.featured::before {
+      height: 1mm;
+    }
+    .project-name {
+      font-size: 8.5pt; font-weight: 600; color: var(--navy);
+      line-height: 1.2; margin-bottom: 1mm;
+    }
+    .project-desc {
+      font-size: 7.5pt; color: var(--muted); line-height: 1.5;
+      margin-bottom: 2mm;
+    }
+    .tech-row { display: flex; flex-wrap: wrap; gap: 1mm; }
+    .tech-chip {
+      font-size: 6.5pt; font-family: 'JetBrains Mono', monospace;
+      padding: .6mm 2mm; background: #f1f5f9; color: #475569;
+      border-radius: 1.5mm; border: .3mm solid var(--border);
+    }
+
+    /* Achievement strip */
+    .achievements { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5mm; }
+    .achievement {
+      text-align: center; padding: 3mm 2mm;
+      border: .3mm solid var(--border); border-radius: 2mm;
+      background: linear-gradient(135deg, #f0fdfa, #eff6ff);
+    }
+    .ach-num { font-size: 14pt; font-weight: 700; color: var(--teal); line-height: 1; }
+    .ach-label { font-size: 7pt; color: var(--muted); margin-top: 1mm; line-height: 1.3; }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; margin: 0; width: 100%; }
+      a { color: inherit !important; }
+    }
+
+    @media screen and (max-width: 800px) {
+      .page { width: 100%; grid-template-columns: 1fr; }
+      .sidebar { padding: 8mm; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════ SIDEBAR ═══════════════ -->
+  <aside class="sidebar">
+
+    <!-- Name -->
+    <div class="name-block">
+      <div class="avatar">ZA</div>
+      <div class="sidebar-name">Zainab Asif</div>
+      <div class="sidebar-role">Software Developer</div>
+    </div>
+
+    <!-- Contact -->
+    <div class="s-section">
+      <div class="s-label">Contact</div>
+
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:zainab.asif.dev@gmail.com">zainab.asif.dev@gmail.com</a>
+      </div>
+
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <a href="https://zainabasif.dev" target="_blank">zainabasif.dev</a>
+      </div>
+
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        <a href="https://github.com/zainabasif" target="_blank">github.com/zainabasif</a>
+      </div>
+
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Lahore, Pakistan</span>
+      </div>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="s-section">
+      <div class="s-label">Technical Skills</div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Mobile</div>
+        <div class="skill-pills">
+          <span class="pill highlight">Flutter</span>
+          <span class="pill highlight">Dart</span>
+          <span class="pill highlight">Blazor</span>
+          <span class="pill highlight">.NET MAUI</span>
+          <span class="pill">Android</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Web & Backend</div>
+        <div class="skill-pills">
+          <span class="pill highlight">React</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">Express</span>
+          <span class="pill">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Languages</div>
+        <div class="skill-pills">
+          <span class="pill highlight">C#</span>
+          <span class="pill highlight">Dart</span>
+          <span class="pill highlight">JavaScript</span>
+          <span class="pill">Java</span>
+          <span class="pill">Python</span>
+          <span class="pill">C++</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Data & Cloud</div>
+        <div class="skill-pills">
+          <span class="pill">Firebase</span>
+          <span class="pill">MongoDB</span>
+          <span class="pill">SQL Server</span>
+          <span class="pill">Azure AI</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Tools</div>
+        <div class="skill-pills">
+          <span class="pill">Git</span>
+          <span class="pill">GitHub</span>
+          <span class="pill">n8n</span>
+          <span class="pill">Figma</span>
+          <span class="pill">Postman</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div class="s-section">
+      <div class="s-label">Languages</div>
+
+      <div class="lang-item">
+        <div class="lang-row">
+          <span class="lang-name">English</span>
+          <span class="lang-level">Fluent</span>
+        </div>
+        <div class="lang-bar"><div class="lang-fill" style="width:90%"></div></div>
+      </div>
+
+      <div class="lang-item">
+        <div class="lang-row">
+          <span class="lang-name">Urdu</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+
+      <div class="lang-item">
+        <div class="lang-row">
+          <span class="lang-name">Punjabi</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- Interests -->
+    <div class="s-section">
+      <div class="s-label">Interests</div>
+      <div class="skill-pills">
+        <span class="pill">AI / ML</span>
+        <span class="pill">Mobile UX</span>
+        <span class="pill">Automation</span>
+        <span class="pill">Open Source</span>
+        <span class="pill">UI Design</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════ MAIN ═══════════════ -->
+  <main class="main">
+
+    <!-- Summary -->
+    <section class="section">
+      <h2 class="section-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Professional Summary
+      </h2>
+      <p class="summary-text">
+        Final-year <strong>Computer Science student</strong> at COMSATS University Lahore (GPA 3.73/4.0),
+        specializing in <strong>cross-platform mobile development</strong> with Flutter and Blazor/.NET MAUI.
+        Proven track record delivering production-quality apps — from AI-powered child safety platforms to
+        full-featured garage management systems. Passionate about the intersection of <strong>AI and mobile</strong>,
+        with hands-on experience in Azure Cognitive Services and real-time content classification.
+        Available for full-time roles from <strong>June 2026</strong>.
+      </p>
+    </section>
+
+    <!-- Achievements -->
+    <div class="achievements">
+      <div class="achievement">
+        <div class="ach-num">3.73</div>
+        <div class="ach-label">CGPA<br/>Dean's List</div>
+      </div>
+      <div class="achievement">
+        <div class="ach-num">10+</div>
+        <div class="ach-label">Projects<br/>Delivered</div>
+      </div>
+      <div class="achievement">
+        <div class="ach-num">5★</div>
+        <div class="ach-label">Freelance<br/>Rating</div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <section class="section">
+      <h2 class="section-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Experience
+      </h2>
+
+      <!-- FYP Lead -->
+      <div class="entry">
+        <div class="entry-dot-col"><div class="dot"></div><div class="dot-line"></div></div>
+        <div class="entry-body">
+          <div class="entry-header">
+            <div>
+              <div class="entry-title">Final Year Project Lead</div>
+              <div class="entry-org">COMSATS University, Lahore</div>
+              <div class="entry-meta">Sep 2025 — Present</div>
+            </div>
+            <span class="entry-badge badge-current">Current</span>
+          </div>
+          <p class="entry-desc">Architecting and leading development of an AI-powered child safety app for Android, heading a team of 3 developers.</p>
+          <ul class="entry-bullets">
+            <li>Built on Blazor/.NET MAUI + Azure Cognitive Services for real-time content classification</li>
+            <li>Implemented parental dashboard with usage analytics and instant safety alerts</li>
+            <li>Designed full CI/CD pipeline and RESTful backend with SQL Server</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Freelance -->
+      <div class="entry">
+        <div class="entry-dot-col"><div class="dot"></div><div class="dot-line"></div></div>
+        <div class="entry-body">
+          <div class="entry-header">
+            <div>
+              <div class="entry-title">Freelance Mobile & Automation Developer</div>
+              <div class="entry-org">Self-Employed</div>
+              <div class="entry-meta">2024 — Present</div>
+            </div>
+            <span class="entry-badge badge-current">Current</span>
+          </div>
+          <p class="entry-desc">Delivering Flutter mobile apps and n8n automation workflows for small-to-medium business clients.</p>
+          <ul class="entry-bullets">
+            <li>Built Gear Up Garage — full-featured Flutter garage management app with Firebase backend</li>
+            <li>Designed n8n automation pipelines (Gmail · Sheets · Slack) eliminating 80% of manual data entry</li>
+            <li>Maintained 5-star client satisfaction rating across all delivered projects</li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+      <h2 class="section-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        Education
+      </h2>
+
+      <div class="entry">
+        <div class="entry-dot-col"><div class="dot"></div></div>
+        <div class="entry-body">
+          <div class="entry-header">
+            <div>
+              <div class="entry-title">BS Computer Science</div>
+              <div class="entry-org">COMSATS University, Lahore</div>
+              <div class="entry-meta">2022 — 2026 &nbsp;·&nbsp; GPA: 3.73 / 4.0</div>
+            </div>
+            <span class="entry-badge badge-current">Current</span>
+          </div>
+          <p class="entry-desc">Specialization in Software Engineering and Mobile Application Development. Active member of the Software Engineering Society.</p>
+          <ul class="entry-bullets">
+            <li>Consistent Dean's List — all semesters to date</li>
+            <li>Relevant courses: Mobile Computing, Software Engineering, AI/ML, Database Systems</li>
+            <li>Final Year Project: AI-Powered Child Safety Mobile App</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section">
+      <h2 class="section-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        Selected Projects
+      </h2>
+
+      <div class="projects-grid">
+
+        <div class="project-card featured">
+          <div class="project-name">KidSafe — AI Child Safety App</div>
+          <p class="project-desc">Cross-platform app with real-time AI content filtering, parental controls, usage analytics, and instant safety alerts. FYP — leading a team of 3.</p>
+          <div class="tech-row">
+            <span class="tech-chip">Blazor</span>
+            <span class="tech-chip">.NET MAUI</span>
+            <span class="tech-chip">Azure AI</span>
+            <span class="tech-chip">SQL Server</span>
+          </div>
+        </div>
+
+        <div class="project-card featured">
+          <div class="project-name">Gear Up Garage</div>
+          <p class="project-desc">Full-featured garage management system — appointments, inventory, invoicing, and push notifications. Delivered as a freelance project.</p>
+          <div class="tech-row">
+            <span class="tech-chip">Flutter</span>
+            <span class="tech-chip">Dart</span>
+            <span class="tech-chip">Firebase</span>
+            <span class="tech-chip">FCM</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">Workflow Automation Suite</div>
+          <p class="project-desc">n8n pipelines integrating Gmail, Google Sheets & Slack. Eliminated 80% of manual data entry for a business client.</p>
+          <div class="tech-row">
+            <span class="tech-chip">n8n</span>
+            <span class="tech-chip">JavaScript</span>
+            <span class="tech-chip">Webhooks</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">Developer Portfolio</div>
+          <p class="project-desc">Full-stack MERN portfolio with animated sections, contact form, and MongoDB storage. Live at zainabasif.dev.</p>
+          <div class="tech-row">
+            <span class="tech-chip">React</span>
+            <span class="tech-chip">Node.js</span>
+            <span class="tech-chip">Express</span>
+            <span class="tech-chip">MongoDB</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Print button (screen only) -->
+<div style="text-align:center;padding:8mm;display:flex;gap:4mm;justify-content:center;" class="no-print">
+  <button onclick="window.print()" style="padding:3mm 8mm;background:#0d9488;color:#fff;border:none;border-radius:2mm;font-size:10pt;font-family:Inter,sans-serif;font-weight:600;cursor:pointer;letter-spacing:.3px;">
+    Print / Save as PDF
+  </button>
+  <button onclick="document.body.style.background='#0f172a'" style="padding:3mm 8mm;background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:2mm;font-size:10pt;font-family:Inter,sans-serif;cursor:pointer;">
+    Dark Background
+  </button>
+</div>
+
+<style>
+  @media print {
+    .no-print { display: none !important; }
+    body { background: white !important; }
+  }
+</style>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio-client",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "cwd": "${workspaceFolder}/client",
+      "port": 3000
+    }
+  ]
+}
