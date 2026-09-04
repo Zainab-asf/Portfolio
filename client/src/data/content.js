@@ -42,6 +42,61 @@ export const TECH_STACK = [
   { label: 'Languages', items: ['C#', 'Dart', 'JavaScript', 'Java', 'Python', 'C++'] }
 ];
 
+// Shown only if /api/projects is unreachable or returns something unexpected
+// (e.g. no backend deployed alongside this static build) — mirrors
+// server/routes/projects.js's FALLBACK_PROJECTS so the site never renders
+// blank just because the API isn't there.
+export const FALLBACK_PROJECTS = [
+  {
+    _id: 'fallback-1', slug: 'ai-child-safety-app', title: 'AI-Powered Child Safety App', category: 'AI',
+    short: "Real-time AI monitoring that helps parents protect kids online without invading their privacy.",
+    overview: 'A cross-platform Blazor and .NET MAUI application that uses machine learning to flag potentially harmful content in real time.',
+    problem: "Parents had no reliable way to monitor a child's digital activity across devices without resorting to invasive tools that damaged trust at home.",
+    solution: 'Machine learning flags potentially harmful content in real time and alerts parents instantly, without recording or exposing private conversations.',
+    features: ['Real-time content classification powered by Azure AI', 'Cross-platform coverage from a single Blazor/.NET MAUI codebase', 'Instant alerts for flagged content', 'Encrypted activity logs stored in SQL Server'],
+    value: 'Gives parents visibility into risk without turning the app into a surveillance tool, building trust with parents and kids alike.',
+    tech: ['Blazor', '.NET MAUI', 'C#', 'Azure AI', 'SQL Server'],
+    image: '', gallery: [], liveUrl: '', githubUrl: 'https://github.com/Zainab-asf',
+    status: 'published', featured: true
+  },
+  {
+    _id: 'fallback-2', slug: 'gear-up-garage', title: 'Gear Up Garage', category: 'Business Tools',
+    short: 'A booking, inventory and customer management system built for a real automotive workshop.',
+    overview: 'A Flutter mobile app backed by Firebase that centralizes appointment scheduling, parts inventory and invoicing.',
+    problem: 'The workshop ran bookings, inventory and invoicing across paper logs and spreadsheets, causing missed appointments and untracked parts.',
+    solution: 'Centralizes appointment scheduling, parts inventory and invoice generation, with push notifications keeping staff and customers in sync.',
+    features: ['Appointment scheduling with conflict detection', 'Live parts inventory tracked in Firestore', 'Automatic invoice generation', 'Push notifications for bookings and status updates'],
+    value: 'Replaced manual logs with one system the whole shop runs on, cutting down missed bookings and untracked inventory.',
+    tech: ['Flutter', 'Dart', 'Firebase', 'Firestore', 'FCM'],
+    image: '', gallery: [], liveUrl: '', githubUrl: 'https://github.com/Zainab-asf',
+    status: 'published', featured: true
+  },
+  {
+    _id: 'fallback-3', slug: 'workflow-automation-suite', title: 'Workflow Automation Suite', category: 'Automation',
+    short: 'An automation pipeline connecting Gmail, Sheets and Slack that cut manual data entry by 80%.',
+    overview: 'A set of automated workflows built in n8n that connect business tools directly through APIs and webhooks.',
+    problem: "The client's team spent hours a week manually moving data between Gmail, Google Sheets and Slack.",
+    solution: 'Automated workflows built in n8n connect these tools directly through APIs and webhooks, removing the manual handoff entirely.',
+    features: ['Automated data sync between Gmail and Google Sheets', 'Slack notifications triggered by workflow events', 'Webhook-based integrations with existing tools', 'No-code workflow maintenance going forward'],
+    value: 'Reduced manual data entry by 80%, freeing the team to spend that time on higher-value work.',
+    tech: ['n8n', 'JavaScript', 'REST APIs', 'Webhooks', 'Google APIs'],
+    image: '', gallery: [], liveUrl: '', githubUrl: 'https://github.com/Zainab-asf',
+    status: 'published', featured: false
+  },
+  {
+    _id: 'fallback-4', slug: 'studio-ops-dashboard', title: 'Studio Ops Dashboard', category: 'Web',
+    short: 'An internal operations dashboard that centralizes the inquiry pipeline on a full MERN stack.',
+    overview: 'A full-stack dashboard built with React, Node.js, Express and MongoDB for tracking inquiries and project status.',
+    problem: 'Client inquiries and project status updates were scattered across email with no central record.',
+    solution: 'One place to track incoming inquiries and project status, with a responsive React UI and a RESTful Express API.',
+    features: ['Centralized inquiry pipeline backed by MongoDB', 'RESTful API built in Express', 'Responsive dashboard UI in React', 'Interface motion via Framer Motion'],
+    value: 'Gave the team a single source of truth for inquiries and project status instead of scattered email threads.',
+    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Framer Motion'],
+    image: '', gallery: [], liveUrl: '', githubUrl: 'https://github.com/Zainab-asf/Portfolio',
+    status: 'published', featured: false
+  }
+];
+
 export const EXPERIENCE = [
   {
     type: 'Education', title: 'BS Computer Science', org: 'COMSATS University, Lahore', period: '2022 — 2026',

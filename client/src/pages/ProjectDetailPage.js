@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
 import ProjectCaseStudy from '../components/ProjectCaseStudy';
+import { fetchProjectBySlug } from '../lib/publicProjects';
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
@@ -10,8 +10,8 @@ export default function ProjectDetailPage() {
 
   useEffect(() => {
     setStatus('loading');
-    axios.get(`/api/projects/slug/${slug}`)
-      .then(res => { setProject(res.data); setStatus('ok'); })
+    fetchProjectBySlug(slug)
+      .then(data => { setProject(data); setStatus('ok'); })
       .catch(() => setStatus('notfound'));
   }, [slug]);
 

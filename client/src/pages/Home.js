@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import ImageSlot from '../components/ImageSlot';
 import FeaturedProject from '../components/FeaturedProject';
 import { ServiceIcons } from '../components/icons';
 import { SERVICES, WHY_ME, PROCESS, TECH_STACK } from '../data/content';
+import { fetchProjects } from '../lib/publicProjects';
 
 const MUTED = (pct) => `color-mix(in srgb,var(--color-text) ${pct}%,transparent)`;
 
@@ -12,9 +12,7 @@ export default function Home() {
   const [featured, setFeatured] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/projects', { params: { featured: true } })
-      .then(res => setFeatured(res.data.slice(0, 2)))
-      .catch(() => {});
+    fetchProjects({ featured: true }).then(list => setFeatured(list.slice(0, 2)));
   }, []);
 
   return (

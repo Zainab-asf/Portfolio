@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
 import ProjectCard from '../components/ProjectCard';
+import { fetchProjects } from '../lib/publicProjects';
 
 const BASE_CATEGORIES = ['All', 'AI', 'Automation', 'Web', 'Mobile', 'Business Tools'];
 
@@ -10,10 +10,7 @@ export default function Work() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/projects')
-      .then(res => setProjects(res.data))
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    fetchProjects().then(setProjects).finally(() => setLoading(false));
   }, []);
 
   const categories = useMemo(() => {
