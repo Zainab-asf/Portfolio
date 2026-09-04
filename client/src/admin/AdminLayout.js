@@ -43,7 +43,7 @@ export default function AdminLayout() {
         minHeight: '100vh', display: 'flex', flexDirection: 'column', padding: '24px 0'
       }}>
         <div style={{ padding: '0 24px 24px', borderBottom: '1px solid rgba(255,255,255,0.12)' }}>
-          <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 17, color: '#fff' }}>Zainab Asif</span>
+          <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 17, color: '#fff' }}>Codify</span>
           <div style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginTop: 2 }}>Admin CMS</div>
         </div>
         <nav style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '16px 12px', flex: 1 }}>

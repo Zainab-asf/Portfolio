@@ -37,7 +37,7 @@ export default function AdminLogin() {
     <div style={{ width: '100%', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-neutral-100)', padding: 24 }}>
       <div style={{ width: '100%', maxWidth: 380, background: 'var(--color-bg)', border: '2px solid var(--color-divider)', padding: '40px 32px' }}>
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 20 }}>Zainab Asif</div>
+          <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 20 }}>Codify</div>
           <div className="section-kicker" style={{ marginBottom: 0 }}>Admin</div>
         </div>
 

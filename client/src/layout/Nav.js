@@ -40,7 +40,7 @@ export default function Nav() {
           onClick={() => navigate('/')}
           style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 18, letterSpacing: '-0.01em', cursor: 'pointer', marginRight: 'auto' }}
         >
-          Zainab Asif
+          Codify
         </span>
         <div className="hide-mobile" style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
           {LINKS.map(l => <NavLink key={l.to} to={l.to} end={l.end} style={linkStyle}>{l.label}</NavLink>)}
