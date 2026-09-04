@@ -6,3 +6,8 @@ server/.env
 .DS_Store
 *.log
 .env
+
+.vercel
+.env*
+server/uploads/*
+!server/uploads/.gitkeep

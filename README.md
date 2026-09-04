@@ -1,17 +1,15 @@
 # Zainab Asif — Portfolio (MERN Stack)
 
-A full-stack portfolio website built with **MongoDB · Express · React · Node.js**.
+A full-stack, multi-page portfolio site built with **MongoDB · Express · React · Node.js**,
+styled on the "Modernist" design system (Archivo, sharp corners, one accent color).
 
-## ✦ Features
+## ✦ Pages
 
-- **Hero** — Typewriter animation cycling through your roles
-- **About** — Bio, tech list, stats (CGPA, projects, etc.)
-- **Skills** — 6 categorized skill groups with hover effects
-- **Projects** — Filterable grid, fetches from Express API, image support
-- **Experience** — Interactive expandable timeline
-- **Contact** — Working form that saves to MongoDB + sends email
-- **Responsive** — Mobile-first, works on all screen sizes
-- **Animations** — Intersection Observer fade-ins throughout
+- **Home** — hero, credibility strip, featured work (alternating rows), services teaser, why-work-with-me, process, tech stack, about teaser, CTA
+- **Work** — filterable project grid, loaded live from MongoDB
+- **Work / case study** (`/work/:slug`) — full case study: overview, challenge, solution, key features, technology, screenshot gallery, business value
+- **Services**, **About** (bio + experience timeline), **Contact** (working form → MongoDB + email)
+- **Admin CMS** (`/admin`) — password-protected: dashboard with stats, searchable/filterable project list, a rich project editor (case-study fields, tech-chip input, cover + 4-slot gallery upload, Draft/Published workflow, live Preview mode before publishing)
 
 ---
 
@@ -27,7 +25,7 @@ cd ../server && npm install
 ### 2. Configure environment
 ```bash
 cp server/.env.example server/.env
-# Edit server/.env with your MongoDB URI and Gmail credentials
+# Edit server/.env with your MongoDB URI, Gmail credentials and admin login (see below)
 ```
 
 ### 3. Run in development
@@ -46,15 +44,34 @@ npm run dev
 |---|---|
 | `MONGODB_URI` | MongoDB Atlas connection string |
 | `PORT` | Server port (default: 5000) |
-| `EMAIL_USER` | Your Gmail address |
-| `EMAIL_PASS` | Gmail App Password (not your login password) |
-| `EMAIL_TO` | Email address that receives contact form messages |
+| `EMAIL_USER` / `EMAIL_PASS` / `EMAIL_TO` | Gmail address, App Password, and recipient for the contact form |
 | `NODE_ENV` | `development` or `production` |
+| `JWT_SECRET` | Long random string that signs admin login sessions |
+| `ADMIN_USERNAME` | Your admin login username |
+| `ADMIN_PASSWORD_HASH` | bcrypt hash of your admin password (never the plaintext) |
 
-**Getting a Gmail App Password:**
-1. Enable 2FA on your Google account
-2. Go to Google Account → Security → App Passwords
-3. Create one for "Mail" → copy the 16-char password
+**Setting up admin login:**
+```bash
+cd server
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"   # → paste as JWT_SECRET
+npm run hash-password -- "your-new-password"                                # → paste output as ADMIN_PASSWORD_HASH
+```
+Then set `ADMIN_USERNAME` to whatever login name you want, and optionally seed the four original projects:
+```bash
+npm run seed
+```
+
+---
+
+## 🔐 Admin CMS
+
+Visit **`/admin`** (redirects to `/admin/login` if you're not signed in).
+
+- **Dashboard** — total/published/draft/featured counts, a recent-projects table, quick actions.
+- **Projects** — search by title, filter by category/status, and Edit / Preview / Publish-toggle / Delete each project.
+- **Add/Edit Project** — Basic Info (title, slug, category, short description), Case Study (overview, problem, solution, features, business value), Technology (add/remove tag chips), Media (cover image + 4-slot screenshot gallery, uploaded straight to the server), Links (live URL, GitHub), and Publishing (Draft/Published + Featured). **Preview** renders the exact public case-study layout before you commit; **Save Draft** keeps it hidden from the public site; **Publish** makes it live immediately.
+
+A project only appears on the public site once its status is `published` — `/api/projects` (public) filters to published only, while `/api/projects/admin` (used by the CMS) returns everything including drafts. Every write endpoint (`POST`/`PUT`/`DELETE`/image upload) requires a valid session token; no admin credentials or secrets ship in the frontend bundle.
 
 ---
 
@@ -62,103 +79,46 @@ npm run dev
 
 ```
 portfolio/
-├── client/                    ← React frontend
-│   ├── public/
-│   │   ├── index.html
-│   │   └── images/
-│   │       ├── profile.jpg        ← ADD YOUR PHOTO HERE
-│   │       └── projects/
-│   │           ├── child-safety.png   ← ADD PROJECT SCREENSHOTS
-│   │           ├── gear-up-garage.png
-│   │           └── ...
-│   └── src/
-│       ├── components/
-│       │   ├── Navbar.js / .css
-│       │   ├── Hero.js / .css
-│       │   ├── About.js / .css
-│       │   ├── Skills.js / .css
-│       │   ├── Projects.js / .css
-│       │   ├── Experience.js / .css
-│       │   ├── Contact.js / .css
-│       │   └── Footer.js / .css
-│       ├── App.js
-│       ├── index.js
-│       └── index.css              ← Design tokens + global styles
+├── client/src/
+│   ├── pages/                 ← one file per route
+│   │   ├── Home.js, Work.js, ProjectDetailPage.js
+│   │   └── Services.js, About.js, Contact.js
+│   ├── layout/                ← Nav.js, Footer.js, SiteLayout.js (wraps public pages)
+│   ├── components/            ← shared, reused across pages + admin
+│   │   ├── ProjectCard.js, FeaturedProject.js
+│   │   ├── ProjectCaseStudy.js   ← case-study renderer, shared by /work/:slug AND admin Preview
+│   │   ├── ImageSlot.js, icons.js
+│   ├── admin/                 ← /admin CMS
+│   │   ├── AuthContext.js, RequireAuth.js, AdminLogin.js
+│   │   ├── AdminLayout.js     ← sidebar shell
+│   │   ├── AdminDashboard.js, AdminProjectsList.js, AdminProjectForm.js
+│   │   ├── ConfirmDeleteModal.js, Toast.js
+│   ├── data/content.js        ← static site copy (services, process, tech stack, experience)
+│   ├── lib/api.js             ← axios instance, attaches the admin token
+│   ├── App.js                 ← all routes
+│   └── index.css              ← design tokens + every component class (btn, tag, table, dialog…)
 └── server/
-    ├── models/
-    │   └── Contact.js             ← MongoDB schema
-    ├── routes/
-    │   ├── contact.js             ← POST /api/contact
-    │   └── projects.js            ← GET /api/projects
-    ├── index.js                   ← Express app
-    └── .env.example
-```
-
----
-
-## 🖼️ Adding Your Content
-
-### Profile Photo
-Place your photo at:
-```
-client/public/images/profile.jpg
-```
-Then in `About.js`, replace the `photo-placeholder` div with:
-```jsx
-<img src="/images/profile.jpg" alt="Zainab Asif" />
-```
-
-### Project Screenshots
-Place images at:
-```
-client/public/images/projects/your-project-name.png
-```
-Then update `server/routes/projects.js` — set `image: "/images/projects/your-project-name.png"` for each project.
-
-### Updating Your Projects
-Edit `server/routes/projects.js` — each project has:
-```js
-{
-  id: 1,
-  title: "Project Name",
-  description: "2–3 line description shown on the card",
-  tech: ["Flutter", "Firebase"],
-  image: "/images/projects/your-image.png",  // null = shows placeholder
-  liveUrl: "https://your-app.com",           // "" = button hidden
-  githubUrl: "https://github.com/...",       // "" = button hidden
-  featured: true,                            // shows "Featured" badge
-  category: "Mobile",                        // Mobile | Web | Automation
-}
-```
-
-### Personalizing Text
-- **About section:** `client/src/components/About.js` — update the bio paragraphs and stats
-- **Experience timeline:** `client/src/components/Experience.js` — update the `experiences` array
-- **Contact links:** `client/src/components/Contact.js` — update email/LinkedIn/GitHub links
-- **Hero taglines:** `client/src/components/Hero.js` — update the `roles` array
-
-### Adding Your Resume
-Place your PDF at:
-```
-client/public/Zainab_Asif_Resume.pdf
+    ├── models/Contact.js, Project.js
+    ├── middleware/auth.js (JWT), upload.js (multer)
+    ├── routes/contact.js, projects.js, auth.js
+    ├── uploads/                ← uploaded images (gitignored)
+    ├── seed.js, hash-password.js
+    └── index.js
 ```
 
 ---
 
 ## 🌐 Deployment
 
-### Deploy to Vercel (Frontend) + Railway or Render (Backend)
-
 **Option A — Separate deployments (recommended):**
-1. Deploy `server/` to Railway or Render (free tiers available)
-2. In `client/package.json`, change `"proxy"` to your deployed API URL
-3. Deploy `client/` to Vercel: connect your GitHub repo
+1. Deploy `server/` to Railway or Render.
+2. In `client/package.json`, change `"proxy"` to your deployed API URL.
+3. Deploy `client/` to Vercel, connected to your GitHub repo.
 
-**Option B — Single Express server serving React build:**
+**Option B — Single Express server serving the React build:**
 ```bash
 cd client && npm run build
-# Then move build/ into server/public/
-# Add to server/index.js:
+# move build/ into server/public/, then in server/index.js:
 # app.use(express.static('public'));
 # app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 ```
@@ -167,17 +127,16 @@ cd client && npm run build
 
 ## 🎨 Customizing the Design
 
-All design tokens are in `client/src/index.css`:
+All design tokens live in `client/src/index.css` — one accent color, zero border-radius, Archivo everywhere:
 ```css
 :root {
-  --navy:     #0a192f;  /* Dark background */
-  --teal:     #64ffda;  /* Accent color — change this to make it yours */
-  --slate:    #8892b0;  /* Body text */
-  --white:    #e6f1ff;  /* Headings */
+  --color-bg:     #f3f2f2;
+  --color-text:   #201e1d;
+  --color-accent: #ec3013;  /* change this to rebrand the whole site */
   ...
 }
 ```
-Change `--teal` to any color (coral, purple, orange…) to completely rebrand the portfolio.
+Every button, tag, card, table, dialog and form field is built from these tokens, so changing `--color-accent` (or `--radius-md` for rounder corners) restyles the entire site and admin CMS at once.
 
 ---
 
@@ -185,13 +144,14 @@ Change `--teal` to any color (coral, purple, orange…) to completely rebrand th
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18, CSS Modules |
-| Animations | CSS Intersection Observer |
+| Frontend | React 18, React Router 6 |
 | Backend | Node.js, Express 4 |
 | Database | MongoDB Atlas (Mongoose) |
+| Auth | JWT + bcrypt (admin CMS) |
+| Uploads | Multer |
 | Email | Nodemailer + Gmail |
 | Rate Limiting | express-rate-limit |
-| Fonts | Syne + DM Sans (Google Fonts) |
+| Font | Archivo (Google Fonts) |
 
 ---
 
